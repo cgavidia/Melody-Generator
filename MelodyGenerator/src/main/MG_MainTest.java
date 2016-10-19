@@ -21,22 +21,24 @@ import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
 public class MG_MainTest {
-
 	
 	@Parameters
 	public static Collection<Object[]> data() {
-		return Arrays.asList(new Object[][] { 
-        	{"10", "120"},
-        	{"6", "90"},
-        	{"D", "120"},
-        	{"7", "fast"},
-        	{"C", "slow"},
+		return Arrays.asList(new Object[][] {        	
+        	{"Db Eb F Gb Ab Bb C", "10", "127"},
+        	{"g# a# b c# d# e# f##", "30", "80"},
+        	{"A B C D E F ", "7", "120"},
+        	{"Db Eb F Gb Ab Bb C ", "", "110"},
+        	{"A B C D E F G", "9", ""},
+        	//{"","6", "110"},
         });	
 	}
 
 	@Parameter
-	public String numOfNotes;
+	public String key;
 	@Parameter(value=1)
+	public String numOfNotes;
+	@Parameter(value=2)
 	public String tempo;
 	
 	
@@ -65,6 +67,7 @@ public class MG_MainTest {
 	@Test
 	public void test() {
 		//Pattern pattern = new Pattern();
+		
 		Player player = new Player();
 		
 		StringBuilder sb = new StringBuilder();
@@ -73,8 +76,11 @@ public class MG_MainTest {
 		sb.append(tempo);
 		System.out.println(sb.toString());
 
+		Song.numOfNotes = Integer.parseInt(numOfNotes);
+		Song.tempo = Integer.parseInt(tempo);
 		
-		player.play(numOfNotes, tempo);
+		player.play(key,sb.toString());
+		System.out.println(key);
 	
 		//assertEquals("",pExpect,calc.calculate(sb.toString()));
 		//System.out.println(calc.calculate(sb.toString()));
